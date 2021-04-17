@@ -1,26 +1,19 @@
-# -*- coding: utf-8 -*-
-"""
-Spyder Editor
+# Unicorn
+# Created for kinetics model building and prediction
 
-This is a temporary script file.
-"""
-
-import dash 
-from dash.dependencies import Input, Output 
+import dash
 import dash_core_components as dcc
 import dash_html_components as html
+from dash.dependencies import Input, Output
 import pandas as pd
 import numpy as np
 import re
 from scipy.optimize import curve_fit
-import chart_studio
-chart_studio.tools.set_credentials_file(
-       username = 'unicorn239',
-       api_key = '••••••••••')
 import plotly.graph_objs as go
 
 
-app = dash.Dash()
+app = dash.Dash(__name__)
+port = int(os.environ.get("PORT", 5000))
 
 app.layout = html.Div(
              children = [
@@ -148,5 +141,7 @@ def update_figure(input_time, input_conv):
             
 
 if __name__ == '__main__':
-    app.run_server(debug = False)
+    app.run_server(debug = False, 
+                   host="0.0.0.0",
+                   port=port)
     
