@@ -143,7 +143,7 @@ def update_figure(input_time, input_conv):
             
 
 if __name__ == '__main__':
-    app.run_server(debug = False, 
+    kinetics.run_server(debug = False, 
                    host="0.0.0.0",
                    port=port)
     
