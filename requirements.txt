@@ -4,3 +4,9 @@ dash-core-components
 dash-html-components
 plotly
 plotly-express
+import plotly.graph_objs as go
+import pandas as pd
+import numpy as np
+import re
+from scipy.optimize import curve_fit
+import chart_studio
