@@ -14,6 +14,7 @@ import plotly.graph_objs as go
 
 
 app = dash.Dash(__name__)
+server = app.server
 port = int(os.environ.get("PORT", 5000))
 
 app.layout = html.Div(
