@@ -4,9 +4,8 @@ dash-core-components
 dash-html-components
 plotly
 plotly-express
-plotly.graph_objs
 pandas
 numpy
 re
-scipy.optimize
+scipy
 chart_studio
