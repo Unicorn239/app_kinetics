@@ -6,6 +6,5 @@ plotly
 plotly-express
 pandas
 numpy
-re.py
 scipy
 chart_studio
