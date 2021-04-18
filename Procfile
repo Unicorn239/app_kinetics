@@ -1,1 +1,1 @@
-web: gunicorn kinetcis:server
+web: gunicorn kinetics:server
