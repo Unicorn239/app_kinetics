@@ -20,18 +20,25 @@ port = int(os.environ.get("PORT", 5000))
 app.layout = html.Div(
              children = [
              html.H3('Enter reaction time here...'),
-             dcc.Input(id = 'time',
-                       type = 'text',
-                       placeholder = 'Enter reaction time',
-                       value = ''
-                       ),
+             dcc.Textarea(id = 'time',
+                          placeholder = 'Enter reaction time',
+                          value = '',
+                          style = {
+                                   'width' : '45%',
+                                   'height' : 30
+                                      }
+                             ),
              html.H3('Enter conversion here...'),
-             dcc.Input(id = 'conv',
-                       type = 'text',
+             dcc.Textarea(id = 'conv',
                        placeholder = 'Enter conversion',
-                       value = ''
-                       ),
+                       value = '',
+                       style = {
+                                 'width' : '45%',
+                                  'height' : 30
+                                      }                       
+                             ),
              html.H3('Parameters after fitting are shown as below...'),
+             html.Button('calculate', id = 'button'),
              html.Div(id = 'results', 
                       style = {'fontSize' : '16x'}),
              html.H3('Conversion curve is shown as below...'),      
@@ -41,10 +48,11 @@ app.layout = html.Div(
 
 @app.callback(
              Output('results', 'children'),
-             [Input('time', 'value'),
-              Input('conv', 'value')]
+             Input('time', 'value'),
+             Input('conv', 'value'),
+             Input('button', 'n_clicks')
               )
-def update_params(input_time, input_conv):
+def update_params(input_time, input_conv, n_clicks):
     mo = re.compile(r'\d*\.?\d+')
     lst_time = mo.findall(input_time)
     lst_conv = mo.findall(input_conv)
@@ -73,16 +81,17 @@ def update_params(input_time, input_conv):
                conv)**2).sum()
     r_square2 = 1 - SS_rsd2/SS_tot2
     
-    if r_square1 > r_square2 and r_square1 > 0.95:
-        return ['first-order kinetics', '\t', 'Cmax = ', params1[0].round(3),\
-                '\t', 'k = ', params1[1].round(3), '\t', 'rsd = ', \
-                params1[2].round(3), '\t', 'R^2 = ', r_square1.round(3)]
-    elif r_square2 > r_square1 and r_square2 > 0.95:
-        return ['second-order kinetics', '\t', 'Cmax = ', params2[0].round(3),\
-                '\t', 'k = ', params2[1].round(3), '\t', 'rsd = ', \
-                    params2[2].round(3), '\t', 'R^2 = ', r_square2.round(3)]
-    elif r_square1 <= 0.95 and r_square2 <= 0.95:
-        return 'no good kinetic curve fitting, contact chemical engineer'
+    if n_clicks > 0:
+        if r_square1 > r_square2 and r_square1 > 0.95:
+            return ['first-order kinetics', '\t', 'Cmax = ', params1[0].round(3),\
+                    '\t', 'k = ', params1[1].round(3), '\t', 'rsd = ', \
+                    params1[2].round(3), '\t', 'R^2 = ', r_square1.round(3)]
+        elif r_square2 > r_square1 and r_square2 > 0.95:
+            return ['second-order kinetics', '\t', 'Cmax = ', params2[0].round(3),\
+                    '\t', 'k = ', params2[1].round(3), '\t', 'rsd = ', \
+                        params2[2].round(3), '\t', 'R^2 = ', r_square2.round(3)]
+        elif r_square1 <= 0.95 and r_square2 <= 0.95:
+            return 'no good kinetic curve fitting, contact chemical engineer'
         
 
 @app.callback(
