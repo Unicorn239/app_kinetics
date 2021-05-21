@@ -24,8 +24,8 @@ app.layout = html.Div(
                           placeholder = 'Enter reaction time',
                           value = '',
                           style = {
-                                   'width' : '45%',
-                                   'height' : 30
+                                   'width' : '35%',
+                                   'height' : 100
                                       }
                              ),
              html.H3('Enter conversion here...'),
@@ -33,8 +33,8 @@ app.layout = html.Div(
                        placeholder = 'Enter conversion',
                        value = '',
                        style = {
-                                 'width' : '45%',
-                                  'height' : 30
+                                 'width' : '35%',
+                                  'height' : 100
                                       }                       
                              ),
              html.H3('Parameters after fitting are shown as below...'),
@@ -42,7 +42,11 @@ app.layout = html.Div(
              html.Div(id = 'results', 
                       style = {'fontSize' : '16x'}),
              html.H3('Conversion curve is shown as below...'),      
-             dcc.Graph(id = 'curve')
+             dcc.Graph(id = 'curve',
+                       style = {
+                                 'width' : '75%',
+                                 'height' : 500
+                                    })
                         ])
 
 
